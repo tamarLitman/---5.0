@@ -1,13 +1,98 @@
-﻿using partA;
+﻿using CsvHelper;
+using partA;
+using System.Globalization;
 
-using static partA.FindNCommonErrors;
 
 
-Console.WriteLine("Hello, World!");
-string filePath = @"C:\Users\123\Desktop\Hadasim\logs.txt";
-List<string[]> segments = SplitTextFileToSegments(filePath, 2);
-Dictionary<string,int> sum = findCommonErrors(filePath,3);
-foreach (var s in sum)
+    Console.WriteLine("Hello, World!");
+string filePath = @"C:\Users\123\Desktop\Hadasim\HomeTest\time_series.csv";
+Validate(filePath);
+static void Validate(string filePath)
 {
-    Console.WriteLine(s.Key,s.Value);
+    string dateFormat = "dd/MM/yyyy HH:mm";
+    List<string> invalidRows = new List<string>();
+    HashSet<DateTime> uniqueTimestamps = new HashSet<DateTime>();
+    List<string> duplicateTimestamps = new List<string>();
+    DateTime minDate = new DateTime(2000, 1, 1);
+    DateTime maxDate = new DateTime(2100, 12, 31);
+    List<string> outOfRangeRows = new List<string>();
+    Dictionary<int, List<double>> hourlyData = new Dictionary<int, List<double>>();
+    List<string> nanRows = new List<string>();
+
+    try
+    {
+        using (StreamReader reader = new StreamReader(filePath))
+        {
+            string line= reader.ReadLine()!;
+            int lineNumber = 0;
+            while ((line = reader.ReadLine()!) != null)
+            {
+                lineNumber++;
+                string[] columns = line.Split(',');
+                string timestamp = columns[0].Trim();
+                string valueString = columns[1].Trim();
+
+                DateTime parsedDate;
+                if (!DateTime.TryParseExact(timestamp, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    invalidRows.Add($"שורה {lineNumber} אינה תקינה: {line}");
+                }
+                else if (parsedDate < minDate || parsedDate > maxDate)
+                {
+                    outOfRangeRows.Add($"שורה {lineNumber} מחוץ לטווח: {timestamp}");
+                }
+                else
+                {
+                    if (!uniqueTimestamps.Add(parsedDate))
+                    {
+                        duplicateTimestamps.Add($"line {lineNumber} with duplicate : {timestamp}");
+                    }
+                    if (columns.Length > 1)
+                    {
+                        if (double.TryParse(columns[1].Trim(), out double numericValue))
+                        {
+                            if (double.IsNaN(numericValue))
+                            {
+                                nanRows.Add($"שורה {lineNumber} מכילה NaN: {line}");
+                            }
+                            else if(double.TryParse(valueString, out double value))
+                            {
+                                int hour = parsedDate.Hour;
+                                if (!hourlyData.ContainsKey(hour))
+                                {
+                                    hourlyData[hour] = new List<double>();
+                                }
+                                hourlyData[hour].Add(value);
+                            }
+                        }
+
+                        invalidRows.Add($"שורה {lineNumber} מכילה ערך מספרי לא תקין: {columns[1]}");                   
+                    }
+                 }
+            }
+        }
+
+        Console.Write(invalidRows.Count > 0 ? "num of invalid line:" : "all line are valid");
+        Console.WriteLine(invalidRows.Count());
+
+        Console.WriteLine(duplicateTimestamps.Count > 0 ? "num of duplicates dates:" : "there are no duplicate dates");
+        Console.WriteLine(duplicateTimestamps.Count());
+
+        Console.WriteLine(outOfRangeRows.Count > 0 ? "num of out of ranfe dates:" : "all dates are valid");
+        Console.WriteLine(outOfRangeRows.Count());
+
+        Console.WriteLine("\naverage per hour:");
+        foreach (var entry in hourlyData)
+        {
+            double average = entry.Value.Average();
+            Console.WriteLine($"hour {entry.Key}: {average:F2}");
+        }
+
+    }   
+    catch (Exception ex)
+    {
+        Console.WriteLine($"שגיאה: {ex.Message}");
+    }
+    return;
+
 }

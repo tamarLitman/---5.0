@@ -28,3 +28,6 @@ C:\Users\123\Desktop\Hadasim\HomeTest\partA\obj\Debug\net8.0\refint\partA.dll
 C:\Users\123\Desktop\Hadasim\HomeTest\partA\obj\Debug\net8.0\partA.pdb
 C:\Users\123\Desktop\Hadasim\HomeTest\partA\obj\Debug\net8.0\partA.genruntimeconfig.cache
 C:\Users\123\Desktop\Hadasim\HomeTest\partA\obj\Debug\net8.0\ref\partA.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\partA\bin\Debug\net8.0\CsvHelper.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\partA\obj\Debug\net8.0\partA.csproj.AssemblyReference.cache
+C:\Users\123\Desktop\Hadasim\HomeTest\partA\obj\Debug\net8.0\partA.csproj.CopyComplete

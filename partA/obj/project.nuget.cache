@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Qi/XWlWChZiQXf2d+c8TXqx0ygBsqoQSqJD4iH4Bo9ugeXRUFjQXtP/lLnXXczDCizF5gDkliyzVtf3r9kwwFA==",
+  "dgSpecHash": "/+4uRWHT7XfAQC8ot5LxnUWHEqYZvjJOzg1Ku8gGk8V8b3LMB75hkNphqbincU/RZtaxKJbQhPo8Z/h83eCHtA==",
   "success": true,
   "projectFilePath": "C:\\Users\\123\\Desktop\\Hadasim\\HomeTest\\partA\\partA.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\123\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
