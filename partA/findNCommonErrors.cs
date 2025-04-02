@@ -19,11 +19,11 @@ namespace partA
                 sumPerSegment.Add(sumSegmentErrors(segment));
             }
 
-            var merged = sumPerSegment
+           res = sumPerSegment
             .SelectMany(dict => dict)
             .GroupBy(kvp => kvp.Key)
             .ToDictionary(g => g.Key, g => g.Sum(kvp => kvp.Value));
-            res= merged.OrderByDescending(error => error.Value)  
+            res= res.OrderByDescending(error => error.Value)  
             .Take(n)
             .ToDictionary(); 
             return res;
