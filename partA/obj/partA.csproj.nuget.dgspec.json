@@ -48,6 +48,10 @@
             "CsvHelper": {
               "target": "Package",
               "version": "[33.0.1, )"
+            },
+            "Parquet.Net": {
+              "target": "Package",
+              "version": "[5.1.1, )"
             }
           },
           "imports": [
