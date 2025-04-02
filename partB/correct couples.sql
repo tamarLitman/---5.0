@@ -40,7 +40,7 @@ begin
 update Person
 set Spouse_Id=@Current_Id
 where Person_ID=
-(select Spouse_Id from relatives where Person_ID=@Current_Id)
+(select Spouse_Id from person where Person_ID=@Current_Id)
 
 fetch next from Person_Cursor into @Current_Id
 end
