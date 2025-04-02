@@ -37,6 +37,8 @@ create table Relatives
 	foreign key (Person_ID) references Person(Person_Id),
 	foreign key (Relative_ID) references Person(Person_Id)
 )
+alter table Relatives 
+ADD CONSTRAINT Relative_ID DEFAULT null FOR Relative_ID;
 
 
 create table catalogConectionType
