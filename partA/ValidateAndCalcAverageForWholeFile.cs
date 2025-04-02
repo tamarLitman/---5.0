@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
@@ -12,7 +13,7 @@ namespace partA
 {
     public class ValidateAndCalcAverage
     {
-        static void CalcAverageWithValidate(string filePath)
+        public static void CalcAverageWithValidateForWholeFile(string filePath)
         {
             string dateFormat = "dd/MM/yyyy HH:mm";
             List<string> invalidRows = new List<string>();
@@ -98,7 +99,57 @@ namespace partA
             {
                 Console.WriteLine($"שגיאה: {ex.Message}");
             }
-            return;
+        }
+        public static void CalcAverageWithValidate(string filePath)
+        {
+            List<Dictionary<int, List<double>>> sumPerSegment = new List<Dictionary<int, List<double>>>();
+
+            List<string[]> splitLog = FindNCommonErrors.SplitTextFileToSegments(filePath, 1000);
+
+            foreach (string[] segment in splitLog)
+            {
+                sumPerSegment.Add(calcAveragePerSegment(segment));
+            }
+            Dictionary<int, List<double>> mergedDictionary = sumPerSegment
+            .SelectMany(dict => dict) 
+            .GroupBy(pair => pair.Key) 
+            .ToDictionary(
+           group => group.Key,
+           group => group.SelectMany(pair => pair.Value).ToList() 
+       );
+        }
+
+        public static Dictionary<int, List<double>> calcAveragePerSegment(string[] segment){
+            string dateFormat = "dd/MM/yyyy HH:mm";
+            HashSet<DateTime> uniqueTimestamps = new HashSet<DateTime>();
+            Dictionary<int, List<double>> hourlyData = new Dictionary<int, List<double>>();
+            foreach (var line in segment)
+            {
+                string[] columns = line.Split(',');
+                string timestamp = columns[0].Trim();
+                string valueString = columns[1].Trim();
+
+                DateTime parsedDate;            
+                if (columns.Length > 1 && DateTime.TryParseExact(timestamp, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    if (double.TryParse(columns[1].Trim(), out double numericValue) 
+                        && !double.IsNaN(numericValue)
+                        && double.TryParse(valueString, out double value))
+                        {
+                            int hour = parsedDate.Hour;
+                            if (!hourlyData.ContainsKey(hour))
+                            {
+                                hourlyData[hour] = new List<double>();
+                            }
+                            hourlyData[hour].Add(value);
+                        }
+                    }
+                }
+            return hourlyData;
         }
     }
 }
+
+
+
+
