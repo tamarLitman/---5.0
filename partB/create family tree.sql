@@ -40,6 +40,9 @@ create table Relatives
 alter table Relatives 
 ADD CONSTRAINT Relative_ID DEFAULT null FOR Relative_ID;
 
+ALTER TABLE Relatives 
+ALTER COLUMN Conection_Type_Code INT NOT NULL;
+
 
 create table catalogConectionType
 (
@@ -64,3 +67,27 @@ values
 (6,'daughter'),
 (7,'wife'),
 (8,'hasbend')
+
+insert into Person
+(
+	Person_Id
+    ,[Personal_Name]
+    ,[Family_Name]
+    ,[Gender]
+    ,[Father_Id]
+    ,[Mother_Id]
+    ,[Spouse_Id]
+)
+values
+(1,'A','AA',1,3,4,2),
+(2,'B','BB',2,5,6,null)
+
+insert into Relatives
+(
+	[Person_ID]
+   ,[Relative_ID]
+   ,[Conection_Type_Code]
+)
+values
+(1,2,7),
+(2,null,8)
