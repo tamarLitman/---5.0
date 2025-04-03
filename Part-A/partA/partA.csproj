@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
+    <PackageReference Include="Microsoft.Spark" Version="2.1.1" />
+    <PackageReference Include="Parquet.Net" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\123\.nuget\packages\microsoft.spark\2.1.1\build\netstandard2.0\..\..\jars\microsoft-spark-2-4_2.11-2.1.1.jar" />
+  </ItemGroup>
+
+</Project>
