@@ -148,8 +148,10 @@ C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\runt
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\BLL.dll
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\Dal.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\DTO.dll
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\BLL.pdb
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\Dal.pdb
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\bin\Debug\net8.0\DTO.pdb
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.csproj.AssemblyReference.cache
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.AssemblyInfoInputs.cache
@@ -157,7 +159,6 @@ C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebA
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.csproj.CoreCompileInputs.cache
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\WebApi.sourcelink.json
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\WebApi\obj\Debug\net8.0\staticwebassets\msbuild.WebApi.Microsoft.AspNetCore.StaticWebAssets.props

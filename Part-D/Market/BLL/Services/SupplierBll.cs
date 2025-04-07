@@ -1,6 +1,8 @@
-﻿using BLL.IServices;
-using Dal;
+﻿using AutoMapper;
+using BLL.IServices;
 using Dal.IRepositories;
+using Dal.Models;
+using DTO.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +14,38 @@ namespace BLL.Services
     public class SupplierBll : ISupplierBll
     {
         ISupplierDal dal;
+        IMapper mapper;
         public SupplierBll(ISupplierDal dal)
         {
             this.dal = dal;
+            var config = new MapperConfiguration(cfg =>
+            cfg.AddProfile<MarketProfile>());
+            mapper = config.CreateMapper();
         }
-        public async Task<Supplier> AddSupplier(Supplier supplier)
+        public async Task<SupplierDto?> AddSupplier(SupplierDto supplier)
         {
-            return await dal.AddSupplier(supplier);
+            Supplier newSupplier= await dal.AddSupplier(mapper.Map<SupplierDto,Supplier>(supplier));
+            if(newSupplier != null)
+            {
+                return mapper.Map<Supplier, SupplierDto>(newSupplier);
+            }
+            return null;
         }
 
-        public async Task<List<Supplier>> getAllSupplier()
+        public async Task<List<SupplierDto>> getAllSupplier()
         {
-            return await dal.getAllSuppliers();
+            List<Supplier> allSuppliers= await dal.getAllSuppliers();
+            return mapper.Map<List<Supplier>, List<SupplierDto>>(allSuppliers);
         }
 
-        public async Task<Supplier?> getSupplierById(int id)
+        public async Task<SupplierDto?> getSupplierById(int id)
         {
-            return await dal.getSupplierById(id);
+            Supplier? res= await dal.getSupplierById(id);
+            if(res != null)
+            {
+                return mapper.Map<Supplier, SupplierDto>(res);
+            }
+            return null;
         }
     }
 }

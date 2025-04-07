@@ -1,14 +1,11 @@
-﻿using Dal.IRepositories;
+using Dal.IRepositories;
+using Dal.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Dal.Repositories
 {
-    public class OrderDal : IOrderDal
+  public class OrderDal : IOrderDal
     {
         MarketContext db;
 
@@ -20,8 +17,8 @@ namespace Dal.Repositories
         {
             try
             {
-                //להוסיף לטבלת קישור!!
-                var res=await db.Orders.AddAsync(order);
+                db.ChangeTracker.Clear();
+                var res = await db.Orders.AddAsync(order);
                 db.SaveChanges();
                 return res.Entity;
             }
@@ -35,7 +32,7 @@ namespace Dal.Repositories
         {
             try
             {
-                return await db.Orders.Include(O => O.OrderState).ToListAsync();
+                return await db.Orders.Include(O => O.OrderState).Include(O=>O.Prods).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -54,5 +51,30 @@ namespace Dal.Repositories
                 throw new Exception(ex.Message);
             }
         }
+
+    public async Task<bool> UpdateOrder(Order order)
+    {
+      try
+       {
+        Order? o = await db.Orders.FindAsync(order.OrderId);
+        if (o != null)
+        {
+          o.OrderStateId = order.OrderStateId;
+          o.OrderState = await db.States.FindAsync(order.OrderStateId);
+          if (o.OrderState != null)
+          {
+            Console.WriteLine("Before SaveChangesAsync");
+            await db.SaveChangesAsync();
+            Console.WriteLine("After SaveChangesAsync");
+            return true;
+          }
+        }
+        return false;
+      }
+      catch(Exception ex)
+      {
+        return false;
+      }
     }
+  }
 }

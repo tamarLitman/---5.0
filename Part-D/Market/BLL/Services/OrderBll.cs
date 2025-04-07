@@ -1,38 +1,53 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BLL.IServices;
-using Dal;
 using Dal.IRepositories;
-using Dal.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dal.Models;
+using DTO.Classes;
+
 
 namespace BLL.Services
 {
     public class OrderBll : IOrderBll
     {
         IOrderDal dal;
-        public OrderBll(IOrderDal dal)
+        IStockDal stockDal;
+        IMapper mapper;
+        public OrderBll(IOrderDal dal, IStockDal stockDal)
         {
             this.dal = dal;
-
+            var config = new MapperConfiguration(cfg =>
+            cfg.AddProfile<MarketProfile>());
+            mapper = config.CreateMapper();
+            this.stockDal = stockDal;
         }
-        public async Task<Order> AddOrder(Order order)
+        public async Task<OrderDto?> AddOrder(OrderDto order)
         {
-            Order res = await dal.AddOrder(order);
-            return res;
+            Order newOrder = await dal.AddOrder(mapper.Map<OrderDto, Order>(order));
+            if (newOrder != null)
+            {
+                return mapper.Map<Order, OrderDto>(newOrder);
+            }
+            return null;
         }
 
-        public async Task<List<Order>> getAllOrders()
+        public async Task<List<OrderDto>> getAllOrders()
         {
-            return await dal.getAllOrders();
+            List<Order> allOrders = await dal.getAllOrders();
+            return mapper.Map<List<Order>,List<OrderDto>>(allOrders);
         }
 
-        public Task<Order> getOrderById(int id)
+        public async Task<OrderDto?> getOrderById(int id)
         {
-            throw new NotImplementedException();
+            Order? res = await dal.getOrderById(id);
+            if(res != null) {
+                return mapper.Map<Order,OrderDto>(res);
+            }
+            return null;
         }
-    }
+
+        public async Task<bool> UpdateOrder(OrderDto order)
+        {
+            return await dal.UpdateOrder(mapper.Map<OrderDto, Order>(order));
+        }
+  }
 }

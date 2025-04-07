@@ -1,4 +1,5 @@
-﻿using Dal;
+﻿using Dal.Models;
+using DTO.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace BLL.IServices
 {
     public interface IStockBll
     {
-        Task<List<Stock>> getAllStock();
-        Task<Stock> getStockById(int id);
-        Task<Stock?> AddStock(Stock stock);
+        Task<List<StockDto>> getAllStock();
+        Task<StockDto> getStockById(int id);
+        Task<StockDto?> AddStock(StockDto stock);
     }
 }

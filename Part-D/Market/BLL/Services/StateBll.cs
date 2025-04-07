@@ -1,6 +1,8 @@
-﻿using BLL.IServices;
-using Dal;
+﻿using AutoMapper;
+using BLL.IServices;
 using Dal.IRepositories;
+using Dal.Models;
+using DTO.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +15,37 @@ namespace BLL.Services
     public class StateBll : IStateBll
     {
         IStateDal dal;
+        IMapper mapper;
         public StateBll(IStateDal dal)
         {
             this.dal = dal;
+            var config = new MapperConfiguration(cfg =>
+            cfg.AddProfile<MarketProfile>());
+            mapper = config.CreateMapper();
         }
-        public async Task<State> AddState(State state)
+        public async Task<StateDto> AddState(StateDto state)
         {
-            return await dal.AddState(state);
+            State newState= await dal.AddState(mapper.Map<StateDto, State>(state));
+            if(newState!=null)
+            {
+                return mapper.Map<State, StateDto>(newState);
+            }
+            return null;
         }
 
-        public async Task<List<State>> getAllStates()
+        public async Task<List<StateDto>> getAllStates()
         {
-            return await dal.getAllStates();
+            List<State> allStates=await dal.getAllStates();
+            return mapper.Map<List<State>, List<StateDto>>(allStates);
         }
 
-        public async Task<State?> getStateById(int id)
+        public async Task<StateDto?> getStateById(int id)
         {
-            return await dal.getStateById(id);
+            State? res = await dal.getStateById(id);
+            if(res!=null) {
+                return mapper.Map<State,StateDto>(res);
+            }
+            return null;
         }
     }
 }

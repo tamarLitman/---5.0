@@ -1,4 +1,5 @@
-﻿using Dal.IRepositories;
+using Dal.IRepositories;
+using Dal.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,15 @@ namespace Dal.Repositories
         MarketContext db;
         public SupplierDal(MarketContext db)
         {
-            this.db = db; 
+            this.db = db;
         }
 
         public async Task<Supplier> AddSupplier(Supplier supplier)
         {
             try
             {
-                var res=await db.Suppliers.AddAsync(supplier);
+                var res = await db.Suppliers.AddAsync(supplier);
+                db.SaveChanges();
                 return res.Entity;
             }
             catch (Exception ex)
@@ -33,9 +35,9 @@ namespace Dal.Repositories
         {
             try
             {
-                return await db.Suppliers.ToListAsync();
+                return await db.Suppliers.Include(s=>s.Stocks).ToListAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -47,9 +49,9 @@ namespace Dal.Repositories
             {
                 return await db.Suppliers.FindAsync(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message);    
+                throw new Exception(ex.Message);
             }
         }
     }

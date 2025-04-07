@@ -1,10 +1,11 @@
 ﻿using Dal.IRepositories;
+using Dal.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 
 namespace Dal.Repositories
 {
@@ -13,7 +14,7 @@ namespace Dal.Repositories
         MarketContext db;
         public StateDal(MarketContext db)
         {
-            this.db = db; 
+            this.db = db;
         }
         public async Task<State> AddState(State state)
         {

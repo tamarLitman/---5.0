@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal;
+namespace Dal.Models;
 
 public partial class Stock
 {
@@ -16,4 +16,6 @@ public partial class Stock
     public int? SupplierId { get; set; }
 
     public virtual Supplier? Supplier { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

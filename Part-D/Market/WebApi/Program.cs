@@ -4,6 +4,7 @@ using Dal;
 using Dal.IRepositories;
 using Dal.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +14,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<MarketContext>(options => options.UseSqlServer("Server=.;Database=Trips;TrustServerCertificate=True;Trusted_Connection=True;"));
+builder.Services.AddDbContext<MarketContext>(options => {
+  options.UseSqlServer("Server=.;Database=Trips;TrustServerCertificate=True;Trusted_Connection=True;");
+})
+;
 
 builder.Services.AddScoped(typeof(IOrderDal), typeof(OrderDal));
 builder.Services.AddScoped(typeof(IOrderBll), typeof(OrderBll));
 
-builder.Services.AddScoped(typeof(IOrderStockDal), typeof(OrderStockDal));
-builder.Services.AddScoped(typeof(IOrderStockBll), typeof(OrderStockBll));
 
 builder.Services.AddScoped(typeof(IStateDal), typeof(StateDal));
 builder.Services.AddScoped(typeof(IStateBll), typeof(StateBll));
@@ -39,7 +41,6 @@ builder.Services.AddCors(opotion => opotion.AddPolicy("all",
 var app = builder.Build();
 app.UseCors("all");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

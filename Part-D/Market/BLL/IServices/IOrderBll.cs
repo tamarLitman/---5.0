@@ -1,5 +1,5 @@
-﻿using Dal;
-using Dal.Repositories;
+using Dal.Models;
+using DTO.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,9 @@ namespace BLL.IServices
 {
     public interface IOrderBll
     {
-        Task<List<Order>> getAllOrders();
-        Task<Order> getOrderById(int id);
-        Task<Order> AddOrder(Order order);
-    }
+        Task<List<OrderDto>> getAllOrders();
+        Task<OrderDto?> getOrderById(int id);
+        Task<OrderDto?> AddOrder(OrderDto order);
+        Task<bool> UpdateOrder(OrderDto order);
+  }
 }

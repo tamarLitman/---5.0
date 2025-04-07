@@ -1101,6 +1101,7 @@
       "BLL/1.0.0": {
         "dependencies": {
           "AutoMapper": "14.0.0",
+          "DTO": "1.0.0",
           "Dal": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.3"
         },
@@ -1114,6 +1115,15 @@
         },
         "runtime": {
           "Dal.dll": {}
+        }
+      },
+      "DTO/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "14.0.0",
+          "Dal": "1.0.0"
+        },
+        "runtime": {
+          "DTO.dll": {}
         }
       }
     }
@@ -1732,6 +1742,11 @@
       "sha512": ""
     },
     "Dal/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DTO/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

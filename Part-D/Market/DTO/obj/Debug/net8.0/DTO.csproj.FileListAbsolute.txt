@@ -1,0 +1,15 @@
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\bin\Debug\net8.0\DTO.deps.json
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\bin\Debug\net8.0\DTO.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\bin\Debug\net8.0\DTO.pdb
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\bin\Debug\net8.0\Dal.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\bin\Debug\net8.0\Dal.pdb
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.csproj.AssemblyReference.cache
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.AssemblyInfoInputs.cache
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.AssemblyInfo.cs
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.csproj.CoreCompileInputs.cache
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.csproj.CopyComplete
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\refint\DTO.dll
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\DTO.pdb
+C:\Users\123\Desktop\Hadasim\HomeTest\Part-D\Market\DTO\obj\Debug\net8.0\ref\DTO.dll

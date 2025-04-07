@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="send()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Company</mat-label>
+      <input matInput formControlName="company" required>
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phoneNumber" required>
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Representative</mat-label>
+      <input matInput formControlName="representative" required>
+    </mat-form-field>
+
+   <mat-form-field class="example-full-width">
+      <mat-label>Input Number of Prods</mat-label>
+      <input type="number" matInput formControlName="numOfProds" required>
+    </mat-form-field>
+
+    <div class="example-button-row">
+      <button mat-button type="submit" [disabled]="form.invalid">Submit</button>
+    </div>
+  </form>
+  

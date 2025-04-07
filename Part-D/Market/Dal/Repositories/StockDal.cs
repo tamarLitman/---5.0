@@ -1,4 +1,5 @@
-﻿using Dal.IRepositories;
+using Dal.IRepositories;
+using Dal.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,8 @@ namespace Dal.Repositories
         {
             try
             {
-                return await db.Stocks.FindAsync(id);
+                return await db.Stocks
+                 .FirstOrDefaultAsync(s => s.ProdId == id);
             }
             catch (Exception ex)
             {

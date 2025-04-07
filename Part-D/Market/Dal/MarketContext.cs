@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dal.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dal;
@@ -17,8 +18,6 @@ public partial class MarketContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<OrderStock> OrderStocks { get; set; }
-
     public virtual DbSet<State> States { get; set; }
 
     public virtual DbSet<Stock> Stocks { get; set; }
@@ -27,7 +26,7 @@ public partial class MarketContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-S04DEMU\\SQLEXPRESS;Initial Catalog=Market;Integrated Security=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-S04DEMU\\SQLEXPRESS;Initial Catalog=Market;Integrated Security=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,24 +42,25 @@ public partial class MarketContext : DbContext
             entity.HasOne(d => d.OrderState).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.OrderStateId)
                 .HasConstraintName("FK__orders__order_st__3D5E1FD2");
-        });
 
-        modelBuilder.Entity<OrderStock>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("order_Stock");
-
-            entity.Property(e => e.OrderId).HasColumnName("order_Id");
-            entity.Property(e => e.ProdId).HasColumnName("Prod_Id");
-
-            entity.HasOne(d => d.Order).WithMany()
-                .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK__order_Sto__order__3F466844");
-
-            entity.HasOne(d => d.Prod).WithMany()
-                .HasForeignKey(d => d.ProdId)
-                .HasConstraintName("FK__order_Sto__Prod___403A8C7D");
+            entity.HasMany(d => d.Prods).WithMany(p => p.Orders)
+                .UsingEntity<Dictionary<string, object>>(
+                    "OrderStock",
+                    r => r.HasOne<Stock>().WithMany()
+                        .HasForeignKey("ProdId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__order_Sto__Prod___4AB81AF0"),
+                    l => l.HasOne<Order>().WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__order_Sto__order__49C3F6B7"),
+                    j =>
+                    {
+                        j.HasKey("OrderId", "ProdId").HasName("PK__order_St__6A13DBF0255AC3F5");
+                        j.ToTable("order_Stock");
+                        j.IndexerProperty<int>("OrderId").HasColumnName("order_Id");
+                        j.IndexerProperty<int>("ProdId").HasColumnName("Prod_Id");
+                    });
         });
 
         modelBuilder.Entity<State>(entity =>

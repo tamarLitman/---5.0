@@ -1,0 +1,16 @@
+<div *ngFor="let stock of  this.stockService.AllProd">
+    <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title> {{stock.prodName}} </mat-card-title>
+          <mat-card-subtitle>{{stock.price}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button (click)="addProdToOrder(stock)" mat-button>addToOrder</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    
+  <div class="example-button-row">
+    <button mat-button class="complete-order-button" (click)="completeOrder()">Complete Order</button>
+</div>
+  

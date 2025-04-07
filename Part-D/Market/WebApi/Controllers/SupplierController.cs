@@ -1,5 +1,6 @@
 ﻿using BLL.IServices;
-using Dal;
+using Dal.Models;
+using DTO.Classes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,17 +16,17 @@ namespace WebApi.Controllers
             this.bll = bll;
         }
         [HttpGet]
-        public async Task<List<Supplier>> getAll()
+        public async Task<List<SupplierDto>> getAll()
         {
             return await bll.getAllSupplier();
         }
         [HttpGet("{id}")]
-        public async Task<Supplier> getById(int id)
+        public async Task<SupplierDto> getById(int id)
         {
             return await bll.getSupplierById(id);
         }
         [HttpPost]
-        public async Task<Supplier> Add([FromBody] Supplier obj)
+        public async Task<SupplierDto> Add([FromBody] SupplierDto obj)
         {
             return await bll.AddSupplier(obj);
         }

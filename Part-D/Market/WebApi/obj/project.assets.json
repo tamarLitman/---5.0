@@ -1717,6 +1717,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "AutoMapper": "14.0.0",
+          "DTO": "1.0.0",
           "Dal": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.3"
         },
@@ -1738,6 +1739,20 @@
         },
         "runtime": {
           "bin/placeholder/Dal.dll": {}
+        }
+      },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "AutoMapper": "14.0.0",
+          "Dal": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
         }
       }
     }
@@ -5209,6 +5224,11 @@
       "type": "project",
       "path": "../Dal/Dal.csproj",
       "msbuildProject": "../Dal/Dal.csproj"
+    },
+    "DTO/1.0.0": {
+      "type": "project",
+      "path": "../DTO/DTO.csproj",
+      "msbuildProject": "../DTO/DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {

@@ -1,4 +1,5 @@
-﻿using Dal;
+﻿using Dal.Models;
+using DTO.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace BLL.IServices
 {
     public interface ISupplierBll
     {
-        Task<List<Supplier>> getAllSupplier();
-        Task<Supplier> getSupplierById(int id);
-        Task<Supplier> AddSupplier(Supplier supplier);
+        Task<List<SupplierDto>> getAllSupplier();
+        Task<SupplierDto?> getSupplierById(int id);
+        Task<SupplierDto?> AddSupplier(SupplierDto supplier);
     }
 }

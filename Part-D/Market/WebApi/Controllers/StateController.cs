@@ -1,5 +1,6 @@
 ﻿using BLL.IServices;
-using Dal;
+using Dal.Models;
+using DTO.Classes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,17 +16,17 @@ namespace WebApi.Controllers
             this.bll = bll;
         }
         [HttpGet]
-        public async Task<List<State>> getAll()
+        public async Task<List<StateDto>> getAll()
         {
             return await bll.getAllStates();
         }
         [HttpGet("{id}")]
-        public async Task<State> getById(int id)
+        public async Task<StateDto?> getById(int id)
         {
             return await bll.getStateById(id);
         }
         [HttpPost]
-        public async Task<State> Add([FromBody] State obj)
+        public async Task<StateDto?> Add([FromBody] StateDto obj)
         {
             return await bll.AddState(obj);
         }

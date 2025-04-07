@@ -1,4 +1,5 @@
-﻿using Dal;
+﻿using Dal.Models;
+using DTO.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace BLL.IServices
 {
     public interface IStateBll
     {
-        Task<List<State>> getAllStates();
-        Task<State> getStateById(int id);
-        Task<State> AddState(State state);
+        Task<List<StateDto>> getAllStates();
+        Task<StateDto?> getStateById(int id);
+        Task<StateDto?> AddState(StateDto state);
     }
 }
