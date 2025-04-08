@@ -1,2 +1,6 @@
 .vs/
 .vs/
+# Ignore obj and bin folders
+**/obj/
+**/bin/partA/obj/
+partA/bin/
