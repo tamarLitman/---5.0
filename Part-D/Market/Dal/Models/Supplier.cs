@@ -15,5 +15,7 @@ public partial class Supplier
 
     public string? Representative { get; set; }
 
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 }

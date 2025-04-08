@@ -5,4 +5,5 @@ export interface Order {
     orderStateId?: number;
     state?: string;
     prods?: Stock[];
+    supplierId? :number;
   }

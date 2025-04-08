@@ -21,9 +21,28 @@ namespace Dal.Repositories
         {
             try
             {
+                var finalStockList = new List<Stock>();
+
+                foreach (var stock in supplier.Stocks)
+                {
+                    var existingChild = await db.Stocks
+                        .FirstOrDefaultAsync(s => s.ProdName == stock.ProdName);
+
+                    if (existingChild != null)
+                    {
+                        throw new Exception(stock.ProdName + " exists, please contact the grocer");
+                    }
+                    else
+                    {
+                        finalStockList.Add(stock);
+                    }
+                }
+
+                supplier.Stocks = finalStockList;
+
                 var res = await db.Suppliers.AddAsync(supplier);
-                db.SaveChanges();
-                return res.Entity;
+                    db.SaveChanges();
+                    return res.Entity;
             }
             catch (Exception ex)
             {

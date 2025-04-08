@@ -17,9 +17,27 @@ namespace Dal.Repositories
         {
             try
             {
-                db.ChangeTracker.Clear();
+            var finalStockList = new List<Stock>();
+
+                foreach (var stock in order.Prods!)
+                {
+                    var existingProd = await db.Stocks
+                        .FirstOrDefaultAsync(s => s.ProdName == stock.ProdName);
+
+                    if (existingProd != null)
+                    {
+                        finalStockList.Add(existingProd);
+                    }
+                    else
+                    {
+                        throw new Exception(stock.ProdName + " not exists!");
+                    }
+        
+                 }
+
+                order.Prods = finalStockList;
                 var res = await db.Orders.AddAsync(order);
-                db.SaveChanges();
+                        db.SaveChanges();
                 return res.Entity;
             }
             catch (Exception ex)

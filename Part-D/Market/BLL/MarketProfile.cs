@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Dal.Models;
 using DTO.Classes;
 
@@ -15,15 +15,13 @@ namespace BLL
             CreateMap<OrderDto, Order>()
                 .ForMember(dest => dest.OrderStateId, opt => opt.MapFrom(src=>src.OrderStateId))
                 .ForMember(dest => dest.OrderState, opt => opt.Ignore())
-                .ForMember(dest => dest.Prods, opt => opt.MapFrom(src => src.Prods));
- 
+                .ForMember(dest => dest.Prods, opt => opt.MapFrom(src => src.Prods))
+                .ForMember(dest => dest.Supplier, opt => opt.Ignore());
 
             CreateMap<State, StateDto>().ReverseMap();
 
             CreateMap<StockDto, Stock>()
                 .ForMember(dest => dest.Supplier, opt => opt.Ignore())
-                .ForMember(dest => dest.MinAmount, opt => opt.Ignore())
-                .ForMember(dest => dest.SupplierId, opt => opt.Ignore())
                 .ForMember(dest => dest.Orders, opt => opt.Ignore());
             CreateMap<Stock, StockDto>();
 

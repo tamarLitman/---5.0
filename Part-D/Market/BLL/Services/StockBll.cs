@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BLL.IServices;
 using Dal.IRepositories;
 using Dal.Models;
@@ -24,10 +24,18 @@ namespace BLL.Services
         }
         public async Task<StockDto?> AddStock(StockDto stock)
         {
-            Stock? newStock= await dal.AddStock(mapper.Map<StockDto,Stock>(stock));
-            if(newStock != null)
+            try
             {
-                return mapper.Map<Stock,StockDto>(newStock);
+                Stock? newStock = await dal.AddStock(mapper.Map<StockDto, Stock>(stock));
+                if (newStock != null)
+                {
+                  return mapper.Map<Stock, StockDto>(newStock);
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
             }
             return null;
         }

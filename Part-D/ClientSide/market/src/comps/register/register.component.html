@@ -16,9 +16,25 @@
 
    <mat-form-field class="example-full-width">
       <mat-label>Input Number of Prods</mat-label>
-      <input type="number" matInput formControlName="numOfProds" required>
+      <input type="number" matInput formControlName="numOfProds" required >
     </mat-form-field>
-
+    <div formArrayName="prods">
+      <div *ngFor="let prod of prods.controls; let i = index" [formGroupName]="i">
+        <mat-form-field class="example-full-width">
+          <mat-label>Product #{{ i + 1 }} Name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+    
+        <mat-form-field class="example-full-width">
+          <mat-label>Price</mat-label>
+          <input type="number" matInput formControlName="price">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Min Amount</mat-label>
+          <input type="number" matInput formControlName="minAmount">
+        </mat-form-field>
+      </div>
+    </div>
     <div class="example-button-row">
       <button mat-button type="submit" [disabled]="form.invalid">Submit</button>
     </div>

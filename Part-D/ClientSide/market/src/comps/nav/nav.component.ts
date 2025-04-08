@@ -7,12 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
   providers: [SupplierService], 
-  imports: [RouterModule,MatFormFieldModule, MatInputModule, MatButtonModule,ReactiveFormsModule,HttpClientModule],
+  imports: [RouterModule,MatFormFieldModule, MatInputModule, MatButtonModule,ReactiveFormsModule,HttpClientModule,MatCardModule, MatButtonModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
@@ -45,6 +46,7 @@ export class NavComponent implements OnInit {
             this.router.navigate(['/register']);
           }
           else{
+            debugger
             sessionStorage.setItem("supplierId",this.form.get("supplierId").value);
             sessionStorage.setItem("isGrocer","false");
             this.router.navigate(['/allOrders']);

@@ -24,11 +24,13 @@ export class AllOrdersComponent implements OnInit {
     this.orderService.getAll()
     .subscribe(
       succ=>{
+        debugger
         this.orderService.AllOrders=succ;
         if(sessionStorage.getItem("isGrocer")=="false"){
           this.isGrocer=false
+          console.log(Number(sessionStorage.getItem("supplierId")));
           this.orderService.AllOrders=this.orderService.AllOrders
-          .filter(order=>order.orderStateId==1 || order.orderStateId==2)
+          .filter(order=>(order.orderStateId==1 && order.supplierId==Number(sessionStorage.getItem("supplierId"))))
         }
         else{
           this.isGrocer=true

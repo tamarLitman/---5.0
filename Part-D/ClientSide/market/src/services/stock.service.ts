@@ -14,7 +14,7 @@ export class StockService {
   {
     return this.http.get<Array<Stock>>(environment.apiUrl+"/Stock")
   }
-  addOrder(S: Stock):Observable<Stock>
+  addStock(S: Stock):Observable<Stock>
   {
     return this.http.post<Stock>(environment.apiUrl+"/Stock",S)
   }
