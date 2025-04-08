@@ -1,0 +1,15 @@
+<div *ngFor="let order of  this.orderService.AllOrders">
+<mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> {{order.orderId}} </mat-card-title>
+      <mat-card-subtitle *ngIf="this.isGrocer==true">{{order.state}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button (click)="approveOrder(order)" mat-button>approve</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="example-button-row" *ngIf="this.isGrocer==true">
+  <button mat-button class="complete-order-button" (click)="newOrder()">New Order</button>
+</div>

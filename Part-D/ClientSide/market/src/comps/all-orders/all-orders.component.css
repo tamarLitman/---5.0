@@ -1,0 +1,88 @@
+.example-form {
+    min-width: 150px;
+    max-width: 800px;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  td {
+    padding: 8px;
+    vertical-align: top;
+  }
+  
+  section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 140px;
+  }
+  
+  table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+  }
+  
+  form button {
+    min-width: 100px;
+  }
+  
+  form {
+    overflow: visible;
+  }
+  button {
+    background-color: #3f51b5; 
+    color: white; 
+    z-index: 9999; 
+    border-radius: 4px; 
+    padding: 8px 16px; 
+    font-size: 16px; 
+  }
+  .complete-order-button {
+    background-color: #303f9f; /* כחול כהה שמתאים ל-#3f51b5 */
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 18px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+  
+  .complete-order-button:hover {
+    background-color: #283593; /* כהה עוד יותר בהובר */
+  }
+  
+  

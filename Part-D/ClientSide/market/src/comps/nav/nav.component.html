@@ -1,0 +1,23 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title> Wellcome To Our Grocary</mat-card-title>
+  </mat-card-header>
+</mat-card>
+<br>
+<br>
+<form [formGroup]="form" (ngSubmit)="send()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Supplier Id</mat-label>
+      <input matInput formControlName="supplierId" required>
+    </mat-form-field>
+
+    <div class="example-button-row">
+      <button mat-button type="submit" [disabled]="form.invalid">Login</button>
+    </div>
+  </form>
+
+  <div class="example-button-row">
+    <button mat-button (click)="grocerLogin()">Grocer Login</button>
+</div>
+
+ <router-outlet></router-outlet> 
