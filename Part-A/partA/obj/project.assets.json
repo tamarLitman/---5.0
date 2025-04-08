@@ -2,19 +2,13 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "Apache.Arrow/2.0.0": {
+      "Apache.Arrow/13.0.0": {
         "type": "package",
-        "dependencies": {
-          "System.Buffers": "4.5.0",
-          "System.Memory": "4.5.2",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.2",
-          "System.Threading.Tasks.Extensions": "4.5.2"
-        },
         "compile": {
-          "lib/netcoreapp2.1/Apache.Arrow.dll": {}
+          "lib/net6.0/Apache.Arrow.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.1/Apache.Arrow.dll": {}
+          "lib/net6.0/Apache.Arrow.dll": {}
         }
       },
       "CsvHelper/33.0.1": {
@@ -193,6 +187,47 @@
           }
         }
       },
+      "ParquetSharp/18.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Apache.Arrow": "13.0.0"
+        },
+        "compile": {
+          "lib/net6.0/ParquetSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ParquetSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/ParquetSharp.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/ParquetSharpNative.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-x64/native/ParquetSharpNative.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-arm64/native/ParquetSharpNative.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/ParquetSharpNative.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/ParquetSharpNative.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          }
+        }
+      },
       "Razorvine.Pyrolite/4.26.0": {
         "type": "package",
         "dependencies": {
@@ -297,15 +332,6 @@
           }
         }
       },
-      "System.Threading.Tasks.Extensions/4.5.2": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/_._": {}
-        }
-      },
       "ZstdSharp.Port/0.8.1": {
         "type": "package",
         "compile": {
@@ -318,18 +344,20 @@
     }
   },
   "libraries": {
-    "Apache.Arrow/2.0.0": {
-      "sha512": "VR+F7g41WMJhr7WoZwwp05OrbYgM5Kmj3FwFXv1g0GgAYhEoCJz3L3qpllUWq9+X/rFKkFRZ2B8XcmsbaqGhrw==",
+    "Apache.Arrow/13.0.0": {
+      "sha512": "+QdmlKEMlN+vWR/3IyUSSZY8DaQWJT9qb3X5STGgXaEc9lF9hwBF0Hznz5i6Nq7J8BV4POW1Dt1QCezxUWqaHA==",
       "type": "package",
-      "path": "apache.arrow/2.0.0",
+      "path": "apache.arrow/13.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
-        "apache.arrow.2.0.0.nupkg.sha512",
+        "apache.arrow.13.0.0.nupkg.sha512",
         "apache.arrow.nuspec",
-        "lib/netcoreapp2.1/Apache.Arrow.dll",
-        "lib/netstandard1.3/Apache.Arrow.dll"
+        "lib/net6.0/Apache.Arrow.dll",
+        "lib/netcoreapp3.1/Apache.Arrow.dll",
+        "lib/netstandard1.3/Apache.Arrow.dll",
+        "lib/netstandard2.0/Apache.Arrow.dll"
       ]
     },
     "CsvHelper/33.0.1": {
@@ -604,6 +632,31 @@
         "lib/netstandard2.1/Parquet.xml",
         "parquet.net.5.1.1.nupkg.sha512",
         "parquet.net.nuspec"
+      ]
+    },
+    "ParquetSharp/18.1.0": {
+      "sha512": "ldmvFfzU6M7PNuVjQ/+dV8J/ffBxaPWIXuc4NrH3JoqylNayRoA8z7KLYqBWDrxVcjK/kWBCy7JbGBlrCg0DXA==",
+      "type": "package",
+      "path": "parquetsharp/18.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "build/ParquetSharp.targets",
+        "buildTransitive/ParquetSharp.targets",
+        "lib/net471/ParquetSharp.dll",
+        "lib/net471/ParquetSharp.xml",
+        "lib/net6.0/ParquetSharp.dll",
+        "lib/net6.0/ParquetSharp.xml",
+        "lib/netstandard2.1/ParquetSharp.dll",
+        "lib/netstandard2.1/ParquetSharp.xml",
+        "parquetsharp.18.1.0.nupkg.sha512",
+        "parquetsharp.nuspec",
+        "runtimes/linux-arm64/native/ParquetSharpNative.so",
+        "runtimes/linux-x64/native/ParquetSharpNative.so",
+        "runtimes/osx-arm64/native/ParquetSharpNative.dylib",
+        "runtimes/osx-x64/native/ParquetSharpNative.dylib",
+        "runtimes/win-x64/native/ParquetSharpNative.dll"
       ]
     },
     "Razorvine.Pyrolite/4.26.0": {
@@ -908,41 +961,6 @@
         "system.text.encoding.nuspec"
       ]
     },
-    "System.Threading.Tasks.Extensions/4.5.2": {
-      "sha512": "BG/TNxDFv0svAzx8OiMXDlsHfGw623BZ8tCXw4YLhDFDvDhNUEV58jKYMGRnkbJNm7c3JNNJDiN7JBMzxRBR2w==",
-      "type": "package",
-      "path": "system.threading.tasks.extensions/4.5.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/netcoreapp2.1/_._",
-        "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
-        "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
-        "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll",
-        "lib/netstandard2.0/System.Threading.Tasks.Extensions.xml",
-        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
-        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/netcoreapp2.1/_._",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.threading.tasks.extensions.4.5.2.nupkg.sha512",
-        "system.threading.tasks.extensions.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "ZstdSharp.Port/0.8.1": {
       "sha512": "19tNz33kn2EkyViFXuxfVn338UJaRmkwBphVqP2dVJIYQUQgFrgG5h061mxkRRg1Ax6r+6WOj1FxaFZ5qaWqqg==",
       "type": "package",
@@ -967,7 +985,8 @@
     "net8.0": [
       "CsvHelper >= 33.0.1",
       "Microsoft.Spark >= 2.1.1",
-      "Parquet.Net >= 5.1.1"
+      "Parquet.Net >= 5.1.1",
+      "ParquetSharp >= 18.1.0"
     ]
   },
   "packageFolders": {
@@ -1026,6 +1045,10 @@
           "Parquet.Net": {
             "target": "Package",
             "version": "[5.1.1, )"
+          },
+          "ParquetSharp": {
+            "target": "Package",
+            "version": "[18.1.0, )"
           }
         },
         "imports": [

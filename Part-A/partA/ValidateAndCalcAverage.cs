@@ -18,6 +18,8 @@ using Parquet.Data;
 using Microsoft.Spark.Sql;
 using Microsoft.Spark.Sql.Streaming;
 using System.Collections;
+using System.IO.Pipes;
+using ParquetSharp;
 
 
 namespace partA
@@ -182,7 +184,7 @@ namespace partA
             return fileExtension switch
             {
                 ".csv" => SplitCSVFileToSegments(inputFilePath),
-                ".parquet" =>await SplitParquetFileToSegmentsAsync(inputFilePath),
+                ".parquet" => SplitParquetFileToSegments(inputFilePath),
                 _ => throw new NotSupportedException("Unsupported file format: " + fileExtension)
             };
         }
@@ -231,29 +233,62 @@ namespace partA
             }
             return segments;
         }
-       // קריאת נתונים מקובץ Praquet
-       // הנתונים מאוחסנים בעמודות , מה שמאפשר שליפה מהירה של עמודות מסוימות ללא צורך בשליפה של כל הנתונים
-       //במקרה הזה אפשרות השליפה של עמודת סוגי השגיאות מועילה וחוסכת בסיבוכיות זמן ריצה
-       //ככלל- הפורמט תומך בBIG DATA -קורא במהירות ומשתמש בזיכרון במהירות
-        private static async Task<List<string[]>> SplitParquetFileToSegmentsAsync(string inputFilePath)
+        // קריאת נתונים מקובץ Praquet
+        // הנתונים מאוחסנים בעמודות , מה שמאפשר שליפה מהירה של עמודות מסוימות ללא צורך בשליפה של כל הנתונים
+        //במקרה הזה אפשרות השליפה של עמודת סוגי השגיאות מועילה וחוסכת בסיבוכיות זמן ריצה
+        //ככלל- הפורמט תומך בBIG DATA -קורא במהירות ומשתמש בזיכרון במהירות
+
+
+        public static List<string[]> SplitParquetFileToSegments(string inputFilePath)
         {
-
             List<string[]> segments = new List<string[]>();
-            Dictionary<DateTime, List<string>> datelyData = new Dictionary<DateTime, List<string>>();
 
-            //using (Stream fileStream = File.OpenRead(inputFilePath))
-            //using (ParquetReader reader = await ParquetReader.CreateAsync(fileStream))
-            //{
-            //    Console.WriteLine("");
-            //}
-            SparkSession spark = SparkSession
-            .Builder()
-            .AppName("calcAverage")
-            .GetOrCreate();
-            DataFrame df = spark.Read().Parquet(inputFilePath);
+            try
+            {
+                using var reader = new ParquetFileReader(inputFilePath);
+                var rowGroupReader = reader.RowGroup(0);
+
+                int totalRows = checked((int)rowGroupReader.MetaData.NumRows);
+
+                var timestampCol = rowGroupReader.Column(0).LogicalReader<Nullable<DateTimeNanos>>().ReadAll(totalRows);
+                var valueCol = rowGroupReader.Column(1).LogicalReader<Nullable<double>>().ReadAll(totalRows);
+
+                var rows = new List<(DateTime FullDateTime, double? Value)>();
+
+                for (int i = 0; i < totalRows; i++)
+                {
+                    if (timestampCol[i].HasValue)
+                    {
+                        var dtNanos = timestampCol[i]!.Value;
+                        var dateTime = new DateTime(dtNanos.Ticks, DateTimeKind.Utc);
+                        rows.Add((dateTime, valueCol[i]));
+                    }
+                }
+                var grouped = rows
+                    .GroupBy(row => row.FullDateTime.Date) 
+                    .OrderBy(g => g.Key);
+
+                foreach (var group in grouped)
+                {
+                    var segment = group
+                        .Select(row => $"{row.FullDateTime:yyyy-MM-dd HH:mm:ss}, {row.Value}") 
+                        .ToArray();
+
+                    segments.Add(segment);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("שגיאה: " + ex.Message);
+            }
+
             return segments;
         }
-   
+
+
+
+
+
     }
 }
     
